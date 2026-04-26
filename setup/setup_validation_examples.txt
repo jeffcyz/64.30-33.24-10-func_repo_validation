@@ -1,0 +1,122 @@
+from ironpython_validation_helpers import ValidationHelperApi
+
+
+SET_UP_VALIDATION_DEAL_NAME_METADATA = {
+    "script_name_display": "SetUpValidationDealName",
+    "function_key": "set_up_validation_deal_name",
+    "focus": "SetUp",
+    "asset": "All",
+    "type": "Summary: Deal Details",
+    "threshold": 3,
+    "severity": "WARNING",
+    "issue_code": "SETUP_DEAL_NAME_MISSING",
+    "description": "Deal Name",
+    "explanation": "Deal name must be populated during setup.",
+    "impact": "Blank deal naming can break reporting, review workflows, and downstream identification.",
+    "action": "Populate the deal name and rerun the validation.",
+}
+
+SET_UP_VALIDATION_PRIMARY_ANALYST_METADATA = {
+    "script_name_display": "SetUpValidationDealContact:PrimaryAnalyst",
+    "function_key": "set_up_validation_deal_contact_primary_analyst",
+    "focus": "SetUp",
+    "asset": "All",
+    "type": "Summary: Deal Details",
+    "threshold": 5,
+    "severity": "CRITICAL",
+    "issue_code": "SETUP_PRIMARY_ANALYST_MISSING",
+    "description": "Deal Contact: Primary Analyst",
+    "explanation": "A primary analyst should be assigned before the deal is promoted for validation or reporting.",
+    "impact": "Missing ownership can delay issue triage, review, and sign-off.",
+    "action": "Assign the primary analyst and rerun the validation.",
+}
+
+SET_UP_VALIDATION_INTEREST_TYPE_METADATA = {
+    "script_name_display": "SetUpValidationInterestTypeExpectations",
+    "function_key": "set_up_validation_interest_type_expectations",
+    "focus": "SetUp",
+    "asset": "All",
+    "type": "Bond",
+    "threshold": 5,
+    "severity": "CRITICAL",
+    "issue_code": "SETUP_INTEREST_TYPE_UNEXPECTED",
+    "description": "Interest Type Expectations",
+    "explanation": "Interest type should align with the selected coupon type code.",
+    "impact": "Incorrect interest type can drive incorrect pricing, accrual, or downstream rule selection.",
+    "action": "Review coupon type code and map the correct interest type.",
+}
+
+
+def SetUpValidationDealName(payload, runtime_context=None, logger=None):
+    return ValidationHelperApi(
+        operation="required",
+        script_name_display="SetUpValidationDealName",
+        metadata=SET_UP_VALIDATION_DEAL_NAME_METADATA,
+        runtime_context=runtime_context,
+        logger=logger,
+        value=payload.get("deal_name"),
+        field_name="deal_name",
+        context={
+            "deal_id": payload.get("deal_id"),
+            "asset_type": payload.get("asset_type"),
+        },
+        issue="Deal name is missing",
+    )
+
+
+def SetUpValidationDealContactPrimaryAnalyst(payload, runtime_context=None, logger=None):
+    return ValidationHelperApi(
+        operation="required",
+        script_name_display="SetUpValidationDealContact:PrimaryAnalyst",
+        metadata=SET_UP_VALIDATION_PRIMARY_ANALYST_METADATA,
+        runtime_context=runtime_context,
+        logger=logger,
+        value=payload.get("primary_analyst"),
+        field_name="primary_analyst",
+        context={
+            "deal_id": payload.get("deal_id"),
+            "team": payload.get("team"),
+        },
+        issue="Primary analyst is missing",
+    )
+
+
+def SetUpValidationInterestTypeExpectations(payload, runtime_context=None, logger=None):
+    coupon_type_code = payload.get("coupon_type_code")
+    expected_interest_type = "Fixed"
+    if coupon_type_code in ("FLT", "ARM", "FLOAT"):
+        expected_interest_type = "Floating"
+
+    return ValidationHelperApi(
+        operation="equal",
+        script_name_display="SetUpValidationInterestTypeExpectations",
+        metadata=SET_UP_VALIDATION_INTEREST_TYPE_METADATA,
+        runtime_context=runtime_context,
+        logger=logger,
+        actual=payload.get("interest_type"),
+        expected=expected_interest_type,
+        field_name="interest_type",
+        context={
+            "deal_id": payload.get("deal_id"),
+            "bond_id": payload.get("bond_id"),
+            "coupon_type_code": coupon_type_code,
+        },
+        issue="Interest type does not match coupon type expectations",
+        explanation="Coupon type code implies an expected interest type, and the configured value does not match.",
+        impact="Interest calculations may use the wrong rule path.",
+        action="Update interest type or coupon type code so they align.",
+    )
+
+
+SETUP_VALIDATION_FUNCTIONS = [
+    SetUpValidationDealName,
+    SetUpValidationDealContactPrimaryAnalyst,
+    SetUpValidationInterestTypeExpectations,
+]
+
+
+def run_setup_validation_examples(payload, runtime_context=None, logger=None):
+    return [
+        validation_function(payload, runtime_context=runtime_context, logger=logger)
+        for validation_function in SETUP_VALIDATION_FUNCTIONS
+    ]
