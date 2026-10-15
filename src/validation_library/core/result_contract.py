@@ -1,6 +1,6 @@
-"""Normalize heterogeneous legacy validation returns without silently declaring success."""
+"""Normalize legacy validation return values; refuse ambiguous results."""
 
-from .severity import normalize_severity, RANKS
+from .severity import normalize_severity, RANKS, string_types
 
 
 def _record_passed(record):
@@ -11,7 +11,7 @@ def _record_passed(record):
     if isinstance(record.get("success"), bool):
         return record["success"]
     status = record.get("status")
-    if isinstance(status, str) and status.upper() in ("PASS", "FAIL"):
+    if isinstance(status, string_types) and status.upper() in ("PASS", "FAIL"):
         return status.upper() == "PASS"
     raise ValueError("Cannot determine pass/fail from record")
 
@@ -27,7 +27,7 @@ def normalize_validation_result(raw, key, name, default_severity="ERROR"):
             success = raw["success"]
         elif isinstance(raw.get("passed"), bool):
             success = raw["passed"]
-        elif isinstance(raw.get("status"), str) and raw["status"].upper() in ("PASS", "FAIL"):
+        elif isinstance(raw.get("status"), string_types) and raw["status"].upper() in ("PASS", "FAIL"):
             success = raw["status"].upper() == "PASS"
         else:
             raise ValueError("Validation %s returned a dictionary without success/passed/status" % key)

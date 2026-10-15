@@ -1,11 +1,16 @@
-"""Severity normalization and comparisons (Python 2.7 / IronPython-friendly syntax)."""
+"""Severity normalization and comparisons."""
+
+try:
+    string_types = (basestring,)
+except NameError:
+    string_types = (str,)
 
 SEVERITIES = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
 RANKS = dict((name, index) for index, name in enumerate(SEVERITIES))
 
 
 def normalize_severity(value):
-    if not isinstance(value, str):
+    if not isinstance(value, string_types):
         raise ValueError("Severity must be a string")
     severity = value.strip().upper()
     if severity not in RANKS:

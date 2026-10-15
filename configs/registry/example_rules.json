@@ -1,0 +1,53 @@
+{
+  "note": "EXAMPLE ONLY. Confirm real ASAP GF names, deployed signatures and runtime bindings before use.",
+  "validations": {
+    "setup_deal_name": {
+      "gf_function_name": "SetUpValidationDealName",
+      "name": "Setup Deal Name",
+      "call_style": "payload_v1",
+      "runtime_context_key": "context",
+      "default_severity": "WARNING",
+      "enabled": true
+    },
+    "setup_interest_type": {
+      "gf_function_name": "SetUpValidationInterestTypeExpectations",
+      "name": "Interest Type Expectation",
+      "call_style": "payload_v1",
+      "runtime_context_key": "context",
+      "default_severity": "CRITICAL",
+      "enabled": true
+    },
+    "cmbs_scheduled_balance": {
+      "gf_function_name": "PeriodicValidationAssetScheduledBalanceRollover",
+      "name": "Scheduled Balance Rollover",
+      "call_style": "payload_v1",
+      "runtime_context_key": "context",
+      "default_severity": "WARNING",
+      "enabled": true
+    },
+    "cmbs_bond_balance": {
+      "gf_function_name": "PeriodicValidationCurrentBondBalanceVsCurrentCollateralBalance",
+      "name": "Bond vs Collateral",
+      "call_style": "payload_v1",
+      "runtime_context_key": "context",
+      "default_severity": "WARNING",
+      "enabled": true
+    }
+  },
+  "portfolios": {
+    "example_setup": {
+      "name": "Example Setup Validation",
+      "validation_keys": [
+        "setup_deal_name",
+        "setup_interest_type"
+      ]
+    },
+    "example_cmbs_periodic": {
+      "name": "Example CMBS Periodic",
+      "validation_keys": [
+        "cmbs_scheduled_balance",
+        "cmbs_bond_balance"
+      ]
+    }
+  }
+}

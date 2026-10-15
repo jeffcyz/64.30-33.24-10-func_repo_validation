@@ -1,4 +1,4 @@
-"""Host-facing GF dispatch. Does not import asap2_obj outside a deployed script."""
+"""ASAP GF dispatcher supporting explicitly configured calling conventions."""
 
 
 class ASAPAdapter(object):
@@ -19,5 +19,8 @@ class ASAPAdapter(object):
                 include_pass=include_passed,
             )
         if style == "payload_v1":
-            return func(params.get("payload", {}), runtime_context=runtime_context)
+            payload = params.get("payload", runtime_context)
+            if not isinstance(payload, dict):
+                raise ValueError("payload_v1 requires a dictionary payload")
+            return func(payload, runtime_context=runtime_context)
         raise ValueError("Unsupported GF calling convention: %s" % style)
