@@ -1,0 +1,26 @@
+name: ASAP Validation CI
+on:
+  push:
+    branches: ["master", "develop", "feature/**", "refactor/**", "release/**", "hotfix/**"]
+  pull_request:
+    branches: ["master", "develop"]
+permissions:
+  contents: read
+jobs:
+  offline-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile development modules
+        run: python -m compileall -q src/validation_library
+      - name: Run standard-library unit and compatibility tests
+        run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Verify old GF entry points are unchanged
+        run: python deployment/asap/build.py --verify
+      - name: Build deterministic ASAP staging bundle
+        run: python deployment/asap/build.py --build
+      - name: Confirm bundle manifest exists
+        run: test -f dist/asap/artifact_manifest.json
