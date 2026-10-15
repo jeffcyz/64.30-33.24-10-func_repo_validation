@@ -66,7 +66,7 @@ class ValidationEngine(object):
                 continue
             if not portfolio_include_results:
                 item.pop("results", None)
-            elif not function_include_passed and isinstance(item.get("results"), list):
+            elif (not portfolio_include_passed or not function_include_passed) and isinstance(item.get("results"), list):
                 from .result_contract import _record_passed
                 item["results"] = [r for r in item["results"] if not _record_passed(r)]
             output.append(item)
