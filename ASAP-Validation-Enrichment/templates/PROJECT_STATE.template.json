@@ -1,0 +1,10 @@
+{
+  "project": "ASAP Validation Enrichment",
+  "schema_version": "1.0",
+  "source_dataset_sha256": null,
+  "completed_sessions": [],
+  "next_session": "00",
+  "completed_batches": [],
+  "latest_outputs": [],
+  "unresolved_blockers": []
+}

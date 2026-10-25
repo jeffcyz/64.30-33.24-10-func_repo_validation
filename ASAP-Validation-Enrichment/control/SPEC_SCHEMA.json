@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASAP Validation Implementation Specification",
+  "type": "object",
+  "required": [
+    "spec_status",
+    "execution_stage",
+    "evaluation_scope",
+    "required_data_points",
+    "runtime_access_plan",
+    "calculation_steps",
+    "validation_logic",
+    "source_references",
+    "shared_pattern_references",
+    "unresolved_questions",
+    "implementation_readiness"
+  ],
+  "properties": {
+    "spec_status": {
+      "enum": [
+        "documented",
+        "partially_documented",
+        "unresolved"
+      ]
+    },
+    "execution_stage": {
+      "enum": [
+        "setup",
+        "periodic",
+        "payment",
+        "unknown"
+      ]
+    },
+    "evaluation_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "runtime_context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "required_data_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "business_name",
+          "asap_runtime_symbol",
+          "access_expression",
+          "source_references",
+          "availability_status"
+        ],
+        "properties": {
+          "business_name": {
+            "type": "string"
+          },
+          "canonical_data_point_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "asap_field_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "asap_runtime_symbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "access_expression": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "entity_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "period": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data_origin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dependencies": {
+            "type": "array"
+          },
+          "availability_status": {
+            "enum": [
+              "documented",
+              "inferred",
+              "unresolved"
+            ]
+          },
+          "source_references": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "runtime_access_plan": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "calculation_steps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "validation_logic": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "shared_pattern_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "implementation_readiness": {
+      "enum": [
+        "ready",
+        "partial",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "prerequisites": {
+      "type": "array"
+    },
+    "assumptions": {
+      "type": "array"
+    },
+    "implementation_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

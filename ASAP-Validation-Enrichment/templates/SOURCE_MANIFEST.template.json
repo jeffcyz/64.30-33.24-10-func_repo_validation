@@ -1,0 +1,15 @@
+{
+  "document_sources": [
+    {
+      "source_id": "ASAP_USER_MANUAL",
+      "document_version": "UNKNOWN",
+      "chunks": []
+    },
+    {
+      "source_id": "ASAP_SCRIPTING_MANUAL",
+      "document_version": "UNKNOWN",
+      "chunks": []
+    }
+  ],
+  "note": "Populate from actual pasted source chunks"
+}

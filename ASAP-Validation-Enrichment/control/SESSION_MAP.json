@@ -1,0 +1,135 @@
+[
+  {
+    "session": "00",
+    "phase": "bootstrap",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "01",
+    "phase": "business_rules",
+    "start": 1,
+    "end": 46,
+    "batch": null
+  },
+  {
+    "session": "02",
+    "phase": "business_rules",
+    "start": 47,
+    "end": 92,
+    "batch": null
+  },
+  {
+    "session": "03",
+    "phase": "manual_routing",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "04",
+    "phase": "runtime_evidence",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "05",
+    "phase": "runtime_evidence",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "06",
+    "phase": "runtime_evidence",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "07",
+    "phase": "mapping",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "08",
+    "phase": "batch",
+    "start": 1,
+    "end": 12,
+    "batch": "01"
+  },
+  {
+    "session": "09",
+    "phase": "batch",
+    "start": 13,
+    "end": 24,
+    "batch": "02"
+  },
+  {
+    "session": "10",
+    "phase": "batch",
+    "start": 25,
+    "end": 36,
+    "batch": "03"
+  },
+  {
+    "session": "11",
+    "phase": "batch",
+    "start": 37,
+    "end": 48,
+    "batch": "04"
+  },
+  {
+    "session": "12",
+    "phase": "batch",
+    "start": 49,
+    "end": 60,
+    "batch": "05"
+  },
+  {
+    "session": "13",
+    "phase": "batch",
+    "start": 61,
+    "end": 68,
+    "batch": "06"
+  },
+  {
+    "session": "14",
+    "phase": "batch",
+    "start": 69,
+    "end": 80,
+    "batch": "07"
+  },
+  {
+    "session": "15",
+    "phase": "batch",
+    "start": 81,
+    "end": 92,
+    "batch": "08"
+  },
+  {
+    "session": "16",
+    "phase": "integration",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "17",
+    "phase": "qa",
+    "start": null,
+    "end": null,
+    "batch": null
+  },
+  {
+    "session": "18",
+    "phase": "merge",
+    "start": null,
+    "end": null,
+    "batch": null
+  }
+]

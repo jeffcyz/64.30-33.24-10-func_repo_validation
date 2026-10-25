@@ -1,0 +1,22 @@
+# Public repository: LOCAL / CONFIDENTIAL project data must never be committed.
+/source/*
+!/source/.gitkeep
+/control/ROW_REGISTRY.jsonl
+/control/PROJECT_STATE.json
+/control/SOURCE_MANIFEST.json
+/knowledge/*
+!/knowledge/.gitkeep
+/patches/*
+!/patches/.gitkeep
+/handoffs/*
+!/handoffs/.gitkeep
+/qa/*
+!/qa/.gitkeep
+/final/*
+!/final/.gitkeep
+/context_packs/*
+!/context_packs/.gitkeep
+__pycache__/
+*.pyc
+*.zip
+.DS_Store

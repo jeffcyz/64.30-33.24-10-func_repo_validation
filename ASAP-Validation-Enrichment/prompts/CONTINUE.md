@@ -1,0 +1,1 @@
+Continue [ARTIFACT_NAME] after last completed row_key/evidence ID [KEY]. Output only new complete JSONL objects and no repeats or changed schema. At the end give last completed key, items remaining and any missing source IDs.
