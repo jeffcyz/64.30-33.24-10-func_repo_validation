@@ -1,0 +1,68 @@
+===== BEGIN SOURCE =====
+SOURCE_ID: VALIDATION_RECORD
+CHUNK_ID: R###
+SOURCE_FILENAME: validation_master_flat.json
+SOURCE_SCOPE: TARGET_AND_CONTINUATIONS
+CONTENT_START
+[Paste exact JSON array of the numbered row and all its continuation rows]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: ROW_REGISTRY
+CHUNK_ID: R###
+CONTENT_START
+[Paste exact JSONL registry entries for target and continuation rows]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: SPEC_SCHEMA
+CHUNK_ID: CANONICAL
+CONTENT_START
+[Paste control/SPEC_SCHEMA.json]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: ASAP_SCRIPTING_MANUAL
+CHUNK_ID: SM-FULL
+SOURCE_FILENAME: merged_scripting_manual.md
+SOURCE_SCOPE: FULL_DOCUMENT
+CONTENT_START
+[Paste exact Markdown content or replace with separately tagged selected chunks]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: ASAP_USER_MANUAL
+CHUNK_ID: UM-FULL
+SOURCE_FILENAME: merged_user_manual.md
+SOURCE_SCOPE: FULL_DOCUMENT
+CONTENT_START
+[Paste exact Markdown]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: ASAP_RELEASE_NOTES
+CHUNK_ID: RN-FULL
+SOURCE_FILENAME: Releases-be4181818e.md
+SOURCE_SCOPE: FULL_DOCUMENT
+CONTENT_START
+[Paste exact Markdown]
+CONTENT_END
+===== END SOURCE =====
+
+===== BEGIN SOURCE =====
+SOURCE_ID: ASAP_SCHEMA_CATALOG
+CHUNK_ID: SC-FULL
+SOURCE_FILENAME: schema_catalog.md
+SOURCE_SCOPE: FULL_DOCUMENT
+CONTENT_START
+[Paste exact Markdown]
+CONTENT_END
+===== END SOURCE =====
+
+At the end, send prompts/SINGLE_VALIDATION_EXECUTE.md as a separate final instruction. In a real context pack replace placeholders with actual content; do not paste this empty template as evidence.
+
