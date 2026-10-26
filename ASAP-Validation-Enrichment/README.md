@@ -1,5 +1,38 @@
 # ASAP Validation Enrichment — Paste-Only, Multi-Session Workflow
 
+## Recommended: one Validation per new Claude conversation
+
+This route does **not** require completing S00–S18 first. Use one independent session for each numbered record and its continuation rows.
+
+**Keep four original Markdown files locally in source/:**
+merged_scripting_manual.md, merged_user_manual.md, Releases-be4181818e.md, schema_catalog.md; and validation_master_flat.json (immutable original).
+
+    python tools/build_registry.py
+    python tools/single_validation.py prepare --id 20
+
+Open a **new** Claude chat. Paste prompts/SINGLE_VALIDATION_HEADER.md first, replacing TARGET_RECORD_ID and TARGET_ROW_KEY with 20 and R020. Paste context_packs/by_record/R020_CONTEXT.txt. Finally paste context_packs/by_record/R020_EXECUTE.txt. The final prompt triggers the analysis.
+
+Download/copy the two Claude artifacts into:
+
+    patches/by_record/SPEC_R020.jsonl
+    qa/by_record/QA_R020.json
+
+Run:
+
+    python tools/single_validation.py validate --id 20
+    python tools/single_validation.py merge --id 20
+
+Subsequently run the same commands for --id 21, 22, etc. The merge preserves all previously enriched records, original business fields and development_status. To deliberately re-enrich an already merged record, use \`merge --id 20 --replace\` (creates final JSON .bak backup).
+
+If full manuals exceed the Claude context limit, use --manual-mode selected and one or more --include SOURCE_ID:relative/path.md; provide SOURCE_ID based on the approved manual list. Unavailable source sections must be treated as unknown, never hallucinated.
+
+**Docs:** [One Validation Workflow](docs/ONE_VALIDATION_WORKFLOW.md) | [Header](prompts/SINGLE_VALIDATION_HEADER.md) | [Execution Prompt](prompts/SINGLE_VALIDATION_EXECUTE.md) | [Source Markers](templates/SINGLE_VALIDATION_SOURCE_MARKERS.txt).
+
+The original 19-session flow below is retained as a **legacy alternative**, including tools/prepare_session.py, tools/validate_artifact.py and tools/merge_specs.py. Do not combine its 8 batch patches with the new per-record patch directory.
+
+---
+
+
 This folder is an **independent subproject** for generating documented ASAP Runtime-based `implementation_spec` entries for a pre-existing flat Validation Master JSON. It is designed for **19 separate Claude chat sessions (S00–S18)** with pasted-text attachments rather than file uploads or filesystem access.
 
 > **SECURITY: The target GitHub repository is PUBLIC. This committed folder contains templates, prompts and local helper scripts only. Do NOT commit the actual ASAP manuals, original company JSON, generated patches, evidence catalogs, or project state unless company-approved for public disclosure. `.gitignore` protects common local filenames, but always check `git status` before pushing.**
